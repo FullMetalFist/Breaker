@@ -16,6 +16,10 @@ class GameViewController: UIViewController {
     var scnScene: SCNScene!
     var game = GameHelper.sharedInstance
     
+    var horizontalCameraNode: SCNNode!
+    var verticalCameraNode: SCNNode!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +38,7 @@ class GameViewController: UIViewController {
     }
     
     func setupNodes() {
-        
+        scnScene.rootNode.addChildNode(game.hudNode)
     }
     
     func setupSounds() {
@@ -53,6 +57,6 @@ class GameViewController: UIViewController {
 // 3
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
-        
+        game.updateHUD()
     }
 }
