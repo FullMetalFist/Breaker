@@ -38,6 +38,8 @@ class GameViewController: UIViewController {
     }
     
     func setupNodes() {
+        horizontalCameraNode = scnScene.rootNode.childNodeWithName("HorizontalCamera", recursively: true)!
+        verticalCameraNode = scnScene.rootNode.childNodeWithName("VerticalCamera", recursively: true)!
         scnScene.rootNode.addChildNode(game.hudNode)
     }
     
@@ -51,6 +53,18 @@ class GameViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    // 1
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        // 2
+        let deviceOrientation = UIDevice.currentDevice().orientation
+        switch (deviceOrientation) {
+        case .Portrait:
+            scnView.pointOfView = verticalCameraNode
+        default:
+            scnView.pointOfView = horizontalCameraNode
+        }
     }
 }
 
